@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Cyber Disco RPG</title>
+<title>NEON STRIKE // CYBER DISCO ROGUELIKE</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
@@ -1087,7 +1087,7 @@ function actuallySpawnBoss(){
     phase:1, pattern:undefined, patternTimer:0, patternDur:2.4,
     hoverAngle:0, telegraph:0, dashTarget:null, warnings:[],
     lastPattern:null, flash:0, shielded:false, shieldTelegraph:0, shieldSpin:0,
-    rage:false, blackHole:null,
+    rage:false, blackHole:null, introFilling:true,
   };
   bossActive = true;
   bossBarWrap.classList.remove('hidden');
@@ -1128,9 +1128,12 @@ function updateBossBar(){
   document.getElementById('bossPhaseLabel').textContent = boss.rage ? 'PHASE 3 — RAGE' : ('PHASE '+boss.phase);
 }
 function growBossHp(dt){
-  if(boss.hp < boss.maxHp && boss.hp>0){
+  if(!boss.introFilling) return;
+  if(boss.hp < boss.maxHp){
     boss.hp = Math.min(boss.maxHp, boss.hp + boss.maxHp*dt*2.2);
     updateBossBar();
+  } else {
+    boss.introFilling = false;
   }
 }
 
